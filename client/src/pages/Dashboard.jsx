@@ -132,27 +132,27 @@ const Dashboard = () => {
         <div className="lg:col-span-2 space-y-6">
           
           {/* Progress Overview Card */}
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700/50 overflow-hidden">
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-6">
+          <div className="bg-gradient-to-b from-white to-slate-50 dark:from-slate-800 dark:to-slate-800/90 rounded-[32px] shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-200/80 dark:border-slate-700 overflow-hidden transition-all duration-300">
+            <div className="p-6 md:p-8">
+              <div className="flex items-center justify-between mb-8">
                 <div>
-                  <h2 className="text-lg font-bold text-slate-800 dark:text-white">Progress Overview</h2>
-                  <p className="text-xs text-slate-400 mt-0.5">Task completion across all projects</p>
+                  <h2 className="text-xl md:text-2xl font-extrabold text-slate-800 dark:text-white tracking-tight">Progress Overview</h2>
+                  <p className="text-xs md:text-sm text-slate-400 mt-1">Task completion across all projects</p>
                 </div>
-                <button onClick={() => nav('/analytics')} className="text-xs font-bold text-amber-500 hover:text-amber-400 flex items-center gap-1 transition-colors">
-                  Analytics <ArrowRight size={12} />
+                <button onClick={() => nav('/analytics')} className="px-4 py-2 rounded-xl text-xs font-extrabold bg-amber-500 text-white shadow-lg shadow-amber-500/20 hover:bg-amber-600 active:scale-95 transition-all flex items-center gap-1.5">
+                  Analytics <ArrowRight size={14} />
                 </button>
               </div>
 
-              <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="flex flex-col md:flex-row items-center gap-10 md:gap-12 py-4">
                 {/* Circular Progress */}
-                <div className="relative w-36 h-36 flex-shrink-0">
+                <div className="relative w-44 h-44 md:w-48 md:h-48 flex-shrink-0">
                   <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="40" fill="none" className="stroke-slate-100 dark:stroke-slate-700" strokeWidth="8" />
+                    <circle cx="50" cy="50" r="40" fill="none" className="stroke-slate-200/80 dark:stroke-slate-700" strokeWidth="10" />
                     <circle
                       cx="50" cy="50" r="40" fill="none"
                       stroke="url(#dashGrad)"
-                      strokeWidth="8" strokeLinecap="round"
+                      strokeWidth="10" strokeLinecap="round"
                       strokeDasharray={`${completionRate * 2.51} ${251 - completionRate * 2.51}`}
                       className="transition-all duration-1000"
                     />
@@ -164,30 +164,30 @@ const Dashboard = () => {
                     </defs>
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="text-2xl font-extrabold text-slate-800 dark:text-white">{completionRate}%</span>
-                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Done</span>
+                    <span className="text-4xl font-extrabold text-slate-800 dark:text-white tracking-tight">{completionRate}%</span>
+                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Done</span>
                   </div>
                 </div>
 
                 {/* Distribution Bars */}
-                <div className="flex-1 w-full space-y-4">
+                <div className="flex-1 w-full space-y-6">
                   {[
-                    { label: 'To Do', value: stats.todoCount, color: 'bg-slate-400 dark:bg-slate-500', total: stats.totalTasks || 1 },
-                    { label: 'In Progress', value: stats.inProgressCount, color: 'bg-blue-500', total: stats.totalTasks || 1 },
-                    { label: 'Completed', value: stats.doneCount, color: 'bg-emerald-500', total: stats.totalTasks || 1 },
+                    { label: 'To Do', value: stats.todoCount, color: 'bg-gradient-to-r from-slate-400 to-slate-500 dark:from-slate-500 dark:to-slate-600', dot: 'bg-slate-400', total: stats.totalTasks || 1 },
+                    { label: 'In Progress', value: stats.inProgressCount, color: 'bg-gradient-to-r from-blue-500 to-indigo-500', dot: 'bg-blue-500', total: stats.totalTasks || 1 },
+                    { label: 'Completed', value: stats.doneCount, color: 'bg-gradient-to-r from-emerald-500 to-teal-500', dot: 'bg-emerald-500', total: stats.totalTasks || 1 },
                   ].map(bar => (
                     <div key={bar.label}>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <div className="flex items-center gap-2">
-                          <div className={`w-2.5 h-2.5 rounded-full ${bar.color}`} />
-                          <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">{bar.label}</span>
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2.5">
+                          <div className={`w-3 h-3 rounded-full ${bar.dot} shadow-sm`} />
+                          <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{bar.label}</span>
                         </div>
-                        <span className="text-xs font-bold text-slate-800 dark:text-white">{bar.value}</span>
+                        <span className="text-sm font-extrabold text-slate-800 dark:text-white px-3 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-700/60 border border-slate-200/60 dark:border-slate-600/40">{bar.value}</span>
                       </div>
-                      <div className="h-2 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                      <div className="h-3.5 md:h-4 bg-slate-100 dark:bg-slate-700/60 rounded-full overflow-hidden p-0.5 border border-slate-200/60 dark:border-slate-600/40">
                         <div
-                          className={`h-full ${bar.color} rounded-full transition-all duration-1000 ease-out`}
-                          style={{ width: `${Math.max((bar.value / bar.total) * 100, bar.value > 0 ? 5 : 0)}%` }}
+                          className={`h-full ${bar.color} rounded-full transition-all duration-1000 ease-out shadow-sm`}
+                          style={{ width: `${Math.max((bar.value / bar.total) * 100, bar.value > 0 ? 6 : 0)}%` }}
                         />
                       </div>
                     </div>
@@ -197,18 +197,18 @@ const Dashboard = () => {
             </div>
 
             {/* Bottom Stats Strip */}
-            <div className="grid grid-cols-3 border-t border-slate-100 dark:border-slate-700">
+            <div className="grid grid-cols-3 gap-3 md:gap-6 p-4 md:p-6 bg-slate-50/80 dark:bg-slate-800/50 rounded-2xl md:rounded-[24px] m-4 md:m-6 border border-slate-100 dark:border-slate-700/60">
               {[
-                { label: 'Pending', value: stats.todoCount + stats.inProgressCount, icon: <Clock size={14} />, color: 'text-amber-500' },
-                { label: 'Overdue', value: stats.overdueCount || 0, icon: <AlertTriangle size={14} />, color: 'text-red-500' },
-                { label: 'Done', value: stats.doneCount, icon: <CheckCircle2 size={14} />, color: 'text-emerald-500' },
-              ].map((s, i) => (
-                <div key={s.label} className={`px-6 py-4 text-center ${i > 0 ? 'border-l border-slate-100 dark:border-slate-700' : ''}`}>
-                  <div className={`flex items-center justify-center gap-1.5 ${s.color} mb-1`}>
+                { label: 'Pending', value: stats.todoCount + stats.inProgressCount, icon: <Clock size={20} />, bg: 'bg-amber-100 dark:bg-amber-500/20', color: 'text-amber-600 dark:text-amber-400' },
+                { label: 'Overdue', value: stats.overdueCount || 0, icon: <AlertTriangle size={20} />, bg: 'bg-red-100 dark:bg-red-500/20', color: 'text-red-600 dark:text-red-400' },
+                { label: 'Done', value: stats.doneCount, icon: <CheckCircle2 size={20} />, bg: 'bg-emerald-100 dark:bg-emerald-500/20', color: 'text-emerald-600 dark:text-emerald-400' },
+              ].map((s) => (
+                <div key={s.label} className="bg-white dark:bg-slate-800 p-4 md:p-5 rounded-xl md:rounded-[20px] shadow-sm border border-slate-100 dark:border-slate-700/50 flex flex-col items-center justify-center transition-all hover:shadow-md hover:-translate-y-0.5">
+                  <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl ${s.bg} ${s.color} flex items-center justify-center mb-3 shadow-inner`}>
                     {s.icon}
-                    <span className="text-lg font-extrabold">{s.value}</span>
                   </div>
-                  <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">{s.label}</p>
+                  <span className={`text-2xl md:text-3xl font-extrabold ${s.color}`}>{s.value}</span>
+                  <p className="text-[11px] md:text-xs font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider mt-1">{s.label}</p>
                 </div>
               ))}
             </div>
