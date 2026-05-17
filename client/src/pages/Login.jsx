@@ -55,14 +55,14 @@ const Login = () => {
         </div>
       )}
 
-      <div className={`bg-[#f5f2eb] w-full max-w-6xl min-h-[700px] rounded-[40px] shadow-2xl flex overflow-hidden border-[12px] border-white/30 backdrop-blur-sm transition-all duration-700 ease-in-out ${
+      <div className={`bg-[#f5f2eb] w-full max-w-[1400px] min-h-[800px] xl:min-h-[850px] rounded-[48px] shadow-2xl flex overflow-hidden border-[16px] border-white/30 backdrop-blur-sm transition-all duration-700 ease-in-out ${
         success ? 'scale-[0.85] opacity-0 rounded-[80px] rotate-1' : 'scale-100 opacity-100'
       }`}>
         
         {/* Left Side: Form */}
-        <div className="w-full lg:w-1/2 p-8 md:p-16 flex flex-col justify-center">
+        <div className="w-full lg:w-1/2 p-8 md:p-20 flex flex-col justify-center">
 
-          <div className="max-w-md mx-auto w-full">
+          <div className="max-w-lg mx-auto w-full">
             {/* Logo */}
             <div className={`inline-flex items-center gap-2 px-5 py-2 bg-white rounded-full border border-slate-200 shadow-sm mb-6 transition-all duration-500 ${success ? 'scale-0' : 'scale-100'}`}>
               <div className="w-5 h-5 bg-amber-500 rounded-full"></div>
@@ -95,8 +95,8 @@ const Login = () => {
               </div>
             ) : (
               <>
-                <h1 className="text-4xl font-semibold text-slate-800 mb-2">Welcome back</h1>
-                <p className="text-slate-500 mb-10">Sign in to your account to continue</p>
+                <h1 className="text-4xl lg:text-5xl font-semibold text-slate-800 mb-3">Welcome back</h1>
+                <p className="text-slate-500 mb-10 text-base">Sign in to your account to continue</p>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-1">
