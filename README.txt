@@ -2,7 +2,7 @@
 
 A **full-stack collaborative team task management application** where users can create projects, assign tasks, manage team members, and track progress — similar to Trello or Asana.
 
-> **🌐 Live Demo:** [https://team-task-manager-production-cdcf.up.railway.app](https://team-task-manager-production-cdcf.up.railway.app)
+> **🌐 Live Demo:** [https://teamtaskmanager-production-starkbbk.up.railway.app](https://teamtaskmanager-production-starkbbk.up.railway.app)
 
 ---
 
@@ -221,7 +221,7 @@ Statuses: TODO, IN_PROGRESS, DONE
 ## 🖼️ Screenshots
 
 > Visit the live demo to see all pages in action:  
-> **[https://team-task-manager-production-cdcf.up.railway.app](https://team-task-manager-production-cdcf.up.railway.app)**
+> **[https://teamtaskmanager-production-starkbbk.up.railway.app](https://teamtaskmanager-production-starkbbk.up.railway.app)**
 
 **Pages:**
 - 🔑 **Signup** — Role selection (Admin/Member), clean form
