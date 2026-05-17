@@ -48,6 +48,11 @@ const Tasks = () => {
   };
 
   const statusLabel = { TODO: 'To Do', IN_PROGRESS: 'In Progress', DONE: 'Done' };
+  const statusColor = {
+    TODO: 'bg-blue-50 text-blue-700 border border-blue-200 shadow-sm shadow-blue-500/5',
+    IN_PROGRESS: 'bg-amber-50 text-amber-700 border border-amber-200 shadow-sm shadow-amber-500/5',
+    DONE: 'bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-sm shadow-emerald-500/5',
+  };
   const priorityColor = { LOW: 'bg-blue-100 text-blue-600', MEDIUM: 'bg-amber-100 text-amber-600', HIGH: 'bg-red-100 text-red-600' };
 
   if (loading) return (
@@ -114,7 +119,7 @@ const Tasks = () => {
                     <span className="text-xs font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-lg">{task.projectName}</span>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-600">
+                    <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl transition-all ${statusColor[task.status]}`}>
                       {statusIcon[task.status]} {statusLabel[task.status]}
                     </span>
                   </td>
