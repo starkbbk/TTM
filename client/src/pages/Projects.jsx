@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import { projectAPI } from '../api';
 import Modal from '../components/Modal';
 import { Plus, FolderKanban, Users, ListTodo, Loader2, Crown } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 
 const Projects = () => {
+  const { user } = useAuth();
+  const isAdmin = user?.role === 'ADMIN';
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
@@ -49,19 +52,23 @@ const Projects = () => {
           <h1 className="text-3xl font-bold text-dark-100">Projects</h1>
           <p className="text-dark-400 mt-1">{projects.length} project{projects.length !== 1 ? 's' : ''}</p>
         </div>
-        <button id="create-project-btn" onClick={() => setShowCreate(true)} className="btn-primary flex items-center gap-2">
-          <Plus size={18} /> New Project
-        </button>
+        {isAdmin && (
+          <button id="create-project-btn" onClick={() => setShowCreate(true)} className="btn-primary flex items-center gap-2">
+            <Plus size={18} /> New Project
+          </button>
+        )}
       </div>
 
       {projects.length === 0 ? (
         <div className="glass-card p-12 text-center">
           <FolderKanban size={48} className="text-dark-600 mx-auto mb-4" />
           <h3 className="text-xl font-semibold text-dark-200 mb-2">No projects yet</h3>
-          <p className="text-dark-400 mb-6">Create your first project to get started</p>
-          <button onClick={() => setShowCreate(true)} className="btn-primary inline-flex items-center gap-2">
-            <Plus size={18} /> Create Project
-          </button>
+          <p className="text-dark-400 mb-6">{isAdmin ? 'Create your first project to get started' : 'Projects assigned to you will appear here'}</p>
+          {isAdmin && (
+            <button onClick={() => setShowCreate(true)} className="btn-primary inline-flex items-center gap-2">
+              <Plus size={18} /> Create Project
+            </button>
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

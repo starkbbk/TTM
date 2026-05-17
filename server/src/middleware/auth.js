@@ -19,6 +19,7 @@ const authenticate = (req, res, next) => {
       id: decoded.id,
       email: decoded.email,
       name: decoded.name,
+      role: decoded.role,
     };
     
     next();

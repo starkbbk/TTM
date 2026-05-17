@@ -52,6 +52,10 @@ const getProjects = async (req, res) => {
  */
 const createProject = async (req, res) => {
   try {
+    if (req.user.role !== 'ADMIN') {
+      return res.status(403).json({ error: 'Only administrators can create new projects.' });
+    }
+
     const { name, description } = req.body;
 
     if (!name || name.trim().length === 0) {

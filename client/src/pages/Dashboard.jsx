@@ -12,6 +12,7 @@ import Modal from '../components/Modal';
 
 const Dashboard = () => {
   const { user } = useAuth();
+  const isAdmin = user?.role === 'ADMIN';
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({ totalTasks: 0, doneCount: 0, inProgressCount: 0, todoCount: 0, totalProjects: 0, overdueCount: 0 });
@@ -91,12 +92,14 @@ const Dashboard = () => {
           </h1>
           <p className="text-slate-400 text-sm mt-1">Here's what's happening with your projects today.</p>
         </div>
-        <button
-          onClick={() => setShowCreate(true)}
-          className="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-5 py-2.5 rounded-xl font-bold text-sm transition-all shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 active:scale-[0.97]"
-        >
-          <Plus size={16} /> New Project
-        </button>
+        {isAdmin && (
+          <button
+            onClick={() => setShowCreate(true)}
+            className="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-5 py-2.5 rounded-xl font-bold text-sm transition-all shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 active:scale-[0.97]"
+          >
+            <Plus size={16} /> New Project
+          </button>
+        )}
       </div>
 
       {/* ── Stats Cards Row ── */}
@@ -237,10 +240,12 @@ const Dashboard = () => {
                   <FolderKanban size={28} className="text-amber-500" />
                 </div>
                 <h3 className="font-bold text-slate-800 dark:text-white mb-1">No projects yet</h3>
-                <p className="text-sm text-slate-400 mb-4">Create your first project to get started</p>
-                <button onClick={() => setShowCreate(true)} className="inline-flex items-center gap-2 text-sm font-bold text-amber-500 hover:text-amber-400 transition-colors">
-                  <Plus size={14} /> Create Project
-                </button>
+                <p className="text-sm text-slate-400 mb-4">{isAdmin ? 'Create your first project to get started' : 'Projects assigned to you will appear here'}</p>
+                {isAdmin && (
+                  <button onClick={() => setShowCreate(true)} className="inline-flex items-center gap-2 text-sm font-bold text-amber-500 hover:text-amber-400 transition-colors">
+                    <Plus size={14} /> Create Project
+                  </button>
+                )}
               </div>
             ) : (
               <div className="space-y-3">
