@@ -43,7 +43,7 @@ A **full-stack collaborative team task management application** where users can 
 - **Priority levels**: Low, Medium, High
 - **Overdue detection** — tasks past due date are highlighted
 
-### 👥 Role-Based Access Control
+### 🔒 Role-Based Access Control
 | Permission | Admin | Member |
 |---|---|---|
 | Create/Edit/Delete Project | ✅ | ❌ |
@@ -53,16 +53,17 @@ A **full-stack collaborative team task management application** where users can 
 | View Project & Tasks | ✅ | ✅ |
 
 ### 📊 Dashboard & Analytics
-- **Dashboard** — Project overview, task distribution bars, team members, overdue count, completion rate
+- **Dashboard** — Project overview, interactive task distribution bars, team members, overdue count, completion rate
+- **Interactive Stat Boxes** — Clickable stats (`Pending`, `Overdue`, `Done`) that instantly filter tasks on navigation
 - **Analytics** — Task distribution chart, completion rate circle, stat cards
-- **All Tasks View** — Table of all tasks across all projects with status/priority filters
+- **All Tasks View** — Table of all tasks across all projects with status/priority badges and filters
 
 ### 🎨 UI/UX
-- Modern **glassmorphism** design with warm amber color palette
+- Modern **glassmorphism** design with rich gradients and warm amber accents
 - **Dark/Light mode** toggle with smooth circle transition animation
-- **Responsive layout** — works on desktop, tablet, and mobile
+- **Responsive layout** — fully optimized for desktop, tablet, and mobile
 - Toast notifications for all actions
-- Loading states and empty states
+- Polished loading states and tailored empty states
 
 ---
 
@@ -224,12 +225,12 @@ Statuses: TODO, IN_PROGRESS, DONE
 > **[https://teamtaskmanager-production-starkbbk.up.railway.app](https://teamtaskmanager-production-starkbbk.up.railway.app)**
 
 **Pages:**
-- 🔑 **Signup** — Role selection (Admin/Member), clean form
-- 🔐 **Login** — Email & password authentication
-- 📊 **Dashboard** — Stats, projects, task distribution, team overview
+- 🔑 **Signup** — Role selection (Admin/Member), premium glassmorphism form
+- 🔐 **Login** — Email & password authentication with success animation
+- 📊 **Dashboard** — Stats, projects, interactive task distribution, clickable stat boxes
 - 📁 **Projects** — Grid view of all projects with member/task count
 - 📝 **Project Detail** — Members list, task board with filters, CRUD
-- 📋 **Tasks** — Table view of all tasks across projects
+- 📋 **Tasks** — Table view of all tasks across projects with priority badges
 - 📈 **Analytics** — Charts, completion rate, task distribution
 
 ---
@@ -242,16 +243,17 @@ Statuses: TODO, IN_PROGRESS, DONE
 
 ### Step 1 — Clone
 ```bash
-git clone https://github.com/starkbbk/Team-Task-Manager.git
-cd Team-Task-Manager
+git clone https://github.com/starkbbk/TTM.git
+cd TTM
 ```
 
-### Step 2 — Backend Setup
+### Step 2 — Install Dependencies
+Run the root install script to automatically install dependencies for root, server, and client:
 ```bash
-cd server
-npm install
+npm run install:all
 ```
 
+### Step 3 — Environment Configuration
 Create `server/.env`:
 ```env
 DATABASE_URL="postgresql://username:password@localhost:5432/team_task_manager"
@@ -261,50 +263,42 @@ FRONTEND_URL="http://localhost:5173"
 NODE_ENV=development
 ```
 
-Run database setup:
-```bash
-npx prisma db push
-npx prisma generate
-```
-
-Start server:
-```bash
-npm run dev
-# Server runs on http://localhost:5000
-```
-
-### Step 3 — Frontend Setup
-```bash
-cd ../client
-npm install
-```
-
 Create `client/.env`:
 ```env
 VITE_API_URL=http://localhost:5000
 ```
 
-Start frontend:
+### Step 4 — Database Setup & Start Server
+Open a terminal and start the backend server:
 ```bash
+cd server
+npx prisma db push
+npm run dev
+# Server runs on http://localhost:5000
+```
+
+### Step 5 — Start Frontend
+Open a second terminal and start the React frontend:
+```bash
+cd client
 npm run dev
 # Frontend runs on http://localhost:5173
 ```
 
-### Step 4 — Open in Browser
-Visit **http://localhost:5173** → Sign up → Create a project → Add tasks!
+Visit **http://localhost:5173** in your browser to explore the app!
 
 ---
 
 ## 🚢 Deployment (Railway)
 
-This app is deployed on **Railway** as a monolith — the Express server serves both the API and the React frontend build.
+This application is fully optimized for seamless deployment on **Railway** as a monolith — the Express server serves both the API endpoints and the static React frontend build.
 
 ### Steps:
-1. Push code to GitHub
-2. Create a new **Railway** project
-3. Add **PostgreSQL** plugin from Railway dashboard
-4. Add a new service → connect your GitHub repo
-5. Set these **environment variables** in Railway:
+1. Push your repository to GitHub (`https://github.com/starkbbk/TTM.git`).
+2. Create a new project on **Railway**.
+3. Add the **PostgreSQL** plugin from the Railway dashboard.
+4. Add a new service → Connect your GitHub repository.
+5. Set the following **Environment Variables** in your Railway service settings:
 
 | Variable | Value |
 |---|---|
@@ -314,9 +308,9 @@ This app is deployed on **Railway** as a monolith — the Express server serves 
 | `NODE_ENV` | `production` |
 | `FRONTEND_URL` | Your Railway app URL |
 
-6. Railway auto-detects `railway.toml` and runs:
-   - **Build:** `cd client && npm install && npm run build && cd ../server && npm install && npx prisma generate`
-   - **Start:** `cd server && npx prisma db push && node src/index.js`
+6. Railway automatically detects `railway.toml` and executes the root scripts:
+   - **Build (`npm run build`):** Installs all dev/prod dependencies and builds both client and server.
+   - **Start (`npm start`):** Automatically applies database migrations (`npx prisma db push`) and starts the Express server (`node src/index.js`).
 
 7. Done! Your app is live. 🎉
 
