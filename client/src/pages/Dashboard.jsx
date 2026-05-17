@@ -199,17 +199,21 @@ const Dashboard = () => {
             {/* Bottom Stats Strip */}
             <div className="grid grid-cols-3 gap-3 md:gap-6 p-4 md:p-6 bg-slate-50/80 dark:bg-slate-800/50 rounded-2xl md:rounded-[24px] m-4 md:m-6 border border-slate-100 dark:border-slate-700/60">
               {[
-                { label: 'Pending', value: stats.todoCount + stats.inProgressCount, icon: <Clock size={20} />, bg: 'bg-amber-100 dark:bg-amber-500/20', color: 'text-amber-600 dark:text-amber-400' },
-                { label: 'Overdue', value: stats.overdueCount || 0, icon: <AlertTriangle size={20} />, bg: 'bg-red-100 dark:bg-red-500/20', color: 'text-red-600 dark:text-red-400' },
-                { label: 'Done', value: stats.doneCount, icon: <CheckCircle2 size={20} />, bg: 'bg-emerald-100 dark:bg-emerald-500/20', color: 'text-emerald-600 dark:text-emerald-400' },
+                { label: 'Pending', value: stats.todoCount + stats.inProgressCount, icon: <Clock size={20} />, bg: 'bg-amber-100 dark:bg-amber-500/20', color: 'text-amber-600 dark:text-amber-400', filter: 'TODO' },
+                { label: 'Overdue', value: stats.overdueCount || 0, icon: <AlertTriangle size={20} />, bg: 'bg-red-100 dark:bg-red-500/20', color: 'text-red-600 dark:text-red-400', filter: 'ALL' },
+                { label: 'Done', value: stats.doneCount, icon: <CheckCircle2 size={20} />, bg: 'bg-emerald-100 dark:bg-emerald-500/20', color: 'text-emerald-600 dark:text-emerald-400', filter: 'DONE' },
               ].map((s) => (
-                <div key={s.label} className="bg-white dark:bg-slate-800 p-4 md:p-5 rounded-xl md:rounded-[20px] shadow-sm border border-slate-100 dark:border-slate-700/50 flex flex-col items-center justify-center transition-all hover:shadow-md hover:-translate-y-0.5">
-                  <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl ${s.bg} ${s.color} flex items-center justify-center mb-3 shadow-inner`}>
+                <button
+                  key={s.label}
+                  onClick={() => nav('/tasks', { state: { filter: s.filter } })}
+                  className="w-full bg-white dark:bg-slate-800 p-4 md:p-5 rounded-xl md:rounded-[20px] shadow-sm border border-slate-100 dark:border-slate-700/50 flex flex-col items-center justify-center transition-all hover:shadow-md hover:border-amber-500/30 dark:hover:border-amber-500/30 hover:-translate-y-1 active:scale-95 cursor-pointer group"
+                >
+                  <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl ${s.bg} ${s.color} flex items-center justify-center mb-3 shadow-inner group-hover:scale-110 transition-transform`}>
                     {s.icon}
                   </div>
                   <span className={`text-2xl md:text-3xl font-extrabold ${s.color}`}>{s.value}</span>
-                  <p className="text-[11px] md:text-xs font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider mt-1">{s.label}</p>
-                </div>
+                  <p className="text-[11px] md:text-xs font-extrabold text-slate-400 dark:text-slate-500 uppercase tracking-wider mt-1 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">{s.label}</p>
+                </button>
               ))}
             </div>
           </div>

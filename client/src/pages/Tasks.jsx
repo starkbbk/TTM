@@ -1,18 +1,22 @@
 import { useState, useEffect } from 'react';
 import { projectAPI } from '../api';
 import { ListTodo, Filter, Clock, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState('ALL');
   const nav = useNavigate();
+  const location = useLocation();
+  const [filter, setFilter] = useState(location.state?.filter || 'ALL');
 
   useEffect(() => {
+    if (location.state?.filter) {
+      setFilter(location.state.filter);
+    }
     fetchAllTasks();
-  }, []);
+  }, [location.state]);
 
   const fetchAllTasks = async () => {
     try {
