@@ -39,11 +39,11 @@ const Signup = () => {
   };
 
   return (
-    <div className={`min-h-screen bg-[#e2e8f0] flex items-center justify-center p-4 md:p-8 transition-all duration-700 ${success ? 'bg-slate-900' : ''}`}>
-      <div className={`bg-[#f5f2eb] w-full max-w-[1400px] min-h-[800px] xl:min-h-[850px] rounded-[48px] shadow-2xl flex overflow-hidden border-[16px] border-white/30 backdrop-blur-sm transition-all duration-700 ease-in-out ${success ? 'scale-[0.85] opacity-0 rounded-[80px] rotate-1' : 'scale-100 opacity-100'}`}>
+    <div className={`min-h-screen bg-[#e2e8f0] flex items-center justify-center p-3 md:p-6 lg:p-6 transition-all duration-700 ${success ? 'bg-slate-900' : ''}`}>
+      <div className={`bg-[#f5f2eb] w-full max-w-[1750px] min-h-[calc(100vh-2rem)] md:min-h-[calc(100vh-3rem)] rounded-[32px] md:rounded-[40px] shadow-2xl flex overflow-hidden border-[12px] md:border-[16px] border-white/40 backdrop-blur-md transition-all duration-700 ease-in-out ${success ? 'scale-[0.85] opacity-0 rounded-[80px] rotate-1' : 'scale-100 opacity-100'}`}>
         
         {/* Left Side: Form */}
-        <div className="w-full lg:w-1/2 p-8 md:p-20 flex flex-col justify-center">
+        <div className="w-full lg:w-1/2 p-8 md:p-16 lg:p-24 flex flex-col justify-center">
 
           <div className="max-w-lg mx-auto w-full">
             {/* Logo */}
