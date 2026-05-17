@@ -163,8 +163,13 @@ html.dark body {
   background-color: #1e293b !important;
 }
 
-.dark .bg-\[\\#f8fafc\] {
+.dark .bg-\[\\#f8fafc\],
+.dark .bg-\[\\#e2e8f0\] {
   background-color: #0f172a !important;
+}
+
+.dark .bg-\[\\#f5f2eb\] {
+  background-color: #1e293b !important;
 }
 
 /* Slate-50 backgrounds in dark mode */
