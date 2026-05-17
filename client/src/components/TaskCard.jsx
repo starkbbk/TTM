@@ -19,53 +19,55 @@ const TaskCard = ({ task, isAdmin, isAssignee, onStatusChange, onDelete, onEdit 
   const isOverdue = task.dueDate && isPast(new Date(task.dueDate)) && task.status !== 'DONE';
 
   return (
-    <div className={`bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 space-y-3 transition-all duration-300 hover:shadow-lg hover:border-slate-300 dark:hover:border-slate-600 ${
-      isOverdue ? 'border-red-300 dark:border-red-500/40' : ''
+    <div className={`bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 rounded-[28px] p-6 md:p-7 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between min-h-[180px] md:min-h-[200px] ${
+      isOverdue ? 'border-red-300 dark:border-red-500/40 shadow-red-500/5' : ''
     }`}>
-      {/* Header */}
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex-1 min-w-0">
-          <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100 truncate">{task.title}</h4>
-          {task.description && (
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{task.description}</p>
+      {/* Top Section: Title & Priority */}
+      <div className="space-y-4">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex-1 min-w-0">
+            <h4 className="text-base md:text-lg font-extrabold text-slate-800 dark:text-slate-100 truncate">{task.title}</h4>
+            {task.description && (
+              <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1.5 line-clamp-2 leading-relaxed">{task.description}</p>
+            )}
+          </div>
+          <span className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold uppercase tracking-wider border ${priority.bg} ${priority.text} ${priority.border} flex-shrink-0 shadow-sm`}>
+            {priority.label}
+          </span>
+        </div>
+
+        {/* Meta: Assignee & Due Date */}
+        <div className="flex items-center gap-6 text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400 py-1">
+          {task.assignee && (
+            <div className="flex items-center gap-2">
+              <User size={14} className="text-slate-400 dark:text-slate-500" />
+              <span>{task.assignee.name}</span>
+            </div>
+          )}
+          {task.dueDate && (
+            <div className={`flex items-center gap-2 ${isOverdue ? 'text-red-500 dark:text-red-400 font-bold' : ''}`}>
+              <Calendar size={14} className={isOverdue ? 'text-red-500 dark:text-red-400' : 'text-slate-400 dark:text-slate-500'} />
+              <span>{format(new Date(task.dueDate), 'MMM d, yyyy')}</span>
+            </div>
           )}
         </div>
-        <span className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border ${priority.bg} ${priority.text} ${priority.border} flex-shrink-0`}>
-          {priority.label}
-        </span>
       </div>
 
-      {/* Meta */}
-      <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400">
-        {task.assignee && (
-          <div className="flex items-center gap-1.5">
-            <User size={12} />
-            <span>{task.assignee.name}</span>
-          </div>
-        )}
-        {task.dueDate && (
-          <div className={`flex items-center gap-1.5 ${isOverdue ? 'text-red-500 dark:text-red-400 font-semibold' : ''}`}>
-            <Calendar size={12} />
-            <span>{format(new Date(task.dueDate), 'MMM d, yyyy')}</span>
-          </div>
-        )}
-      </div>
-
-      {/* Footer */}
-      <div className="flex items-center justify-between pt-3 border-t border-slate-100 dark:border-slate-700">
-        <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold ${status.bg} ${status.text}`}>
+      {/* Footer Section: Status & Actions */}
+      <div className="flex items-center justify-between pt-4 mt-6 border-t border-slate-100 dark:border-slate-700/80">
+        <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs md:text-sm font-extrabold shadow-sm ${status.bg} ${status.text}`}>
           {status.icon} {status.label}
         </span>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           {/* Status change button */}
           {status.next && (isAdmin || isAssignee) && (
             <button
               onClick={() => onStatusChange(task.id, status.next)}
-              className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 hover:bg-amber-500/20 transition-colors border border-amber-500/20"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs md:text-sm font-extrabold bg-amber-500/10 text-amber-600 dark:text-amber-400 hover:bg-amber-500/20 transition-all border border-amber-500/20 shadow-sm hover:shadow"
             >
               {status.nextLabel}
-              <ArrowRight size={12} />
+              <ArrowRight size={14} />
             </button>
           )}
 
@@ -74,17 +76,17 @@ const TaskCard = ({ task, isAdmin, isAssignee, onStatusChange, onDelete, onEdit 
             <>
               <button
                 onClick={() => onEdit(task)}
-                className="p-2 rounded-lg text-slate-400 dark:text-slate-500 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-500/10 transition-colors"
+                className="p-2.5 rounded-xl text-slate-400 dark:text-slate-500 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-500/10 transition-colors"
                 title="Edit task"
               >
-                <Pencil size={14} />
+                <Pencil size={16} />
               </button>
               <button
                 onClick={() => onDelete(task.id)}
-                className="p-2 rounded-lg text-slate-400 dark:text-slate-500 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
+                className="p-2.5 rounded-xl text-slate-400 dark:text-slate-500 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
                 title="Delete task"
               >
-                <Trash2 size={14} />
+                <Trash2 size={16} />
               </button>
             </>
           )}
