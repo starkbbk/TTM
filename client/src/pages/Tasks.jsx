@@ -103,9 +103,9 @@ const Tasks = () => {
               <tr className="border-b border-slate-100 text-left">
                 <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Task</th>
                 <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Project</th>
-                <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Status</th>
                 <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Priority</th>
                 <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Assignee</th>
+                <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Status</th>
               </tr>
             </thead>
             <tbody>
@@ -123,17 +123,17 @@ const Tasks = () => {
                     <span className="text-xs font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-lg">{task.projectName}</span>
                   </td>
                   <td className="px-6 py-4">
-                    <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl transition-all ${statusColor[task.status]}`}>
-                      {statusIcon[task.status]} {statusLabel[task.status]}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
                     <span className={`text-[10px] font-bold px-2.5 py-1 rounded-lg ${priorityColor[task.priority]}`}>
                       {task.priority}
                     </span>
                   </td>
                   <td className="px-6 py-4">
                     <span className="text-xs text-slate-500">{task.assignee?.name || 'Unassigned'}</span>
+                  </td>
+                  <td className="px-6 py-4">
+                    <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl transition-all ${statusColor[task.status]}`}>
+                      {statusIcon[task.status]} {statusLabel[task.status]}
+                    </span>
                   </td>
                 </tr>
               ))}
